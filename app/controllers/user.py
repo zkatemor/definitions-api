@@ -12,7 +12,7 @@ def encrypt_string(hash_string):
 
 
 def body_schema(user):
-    return {"result": {'id': user.id, 'login': user.login, 'token': user.token} }
+    return {"result": {'id': user.id, 'login': user.login, 'token': user.token}}
 
 
 class UsersAuthController(Resource):
@@ -42,10 +42,8 @@ class UsersAuthController(Resource):
                        }
                    }, 422
 
-        user = User.query.filter(User.login == login
-                                 and User.password == password_sha).first()
-
-        if user:
+        user = User.query.filter(User.login == login).first()
+        if user and user.password == password_sha:
             return body_schema(user), 200
         else:
             return self.error_schema(), 404
