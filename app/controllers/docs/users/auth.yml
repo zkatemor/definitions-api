@@ -1,0 +1,62 @@
+tags:
+  - Users
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          login:
+            type: string
+            required: true
+            example: 'test'
+          password:
+            type: string
+            required: true
+            example: 'test'
+responses:
+  200:
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            result:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                login:
+                  type: string
+                  example: 'test'
+                token:
+                  type: string
+                  example: 'token'
+  '422':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'login, password is required'
+  '404':
+    description: Not Found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'wrong login or password'

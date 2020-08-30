@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Definitions API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://{host}",
+      "variables": {
+        "host": {
+          "default": "fire-safety-definitions.herokuapp.com"
+        }
+      }
+    }
+  ]
+}

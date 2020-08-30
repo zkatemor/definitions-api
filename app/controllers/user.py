@@ -32,6 +32,9 @@ class UsersAuthController(Resource):
         return args['login'], args['password']
 
     def post(self):
+        """
+        file: docs/users/auth.yml
+        """
         try:
             login, password = self.auth_params()
             password_sha = encrypt_string(password)
