@@ -62,13 +62,16 @@ class UsersRegisterController(Resource):
         return args['login'], args['password'], args['token']
 
     def post(self):
+        """
+        file: docs/users/register.yml
+        """
         try:
             login, password, token = self.register_params()
             password_sha = encrypt_string(password)
         except Exception as e:
             return {
                        "error": {
-                           "message": "login, password is required"
+                           "message": "login, password, token is required"
                        }
                    }, 422
 
@@ -107,6 +110,9 @@ class UsersController(Resource):
         return args['login'], args['password'], args['token']
 
     def put(self, id):
+        """
+        file: docs/users/update.yml
+        """
         try:
             login, password, token = self.update_params()
         except Exception as e:
@@ -161,6 +167,9 @@ class UsersController(Resource):
                    }, 401
 
     def delete(self, id):
+        """
+        file: docs/users/delete.yml
+        """
         try:
             login, password, token = self.update_params()
         except Exception as e:

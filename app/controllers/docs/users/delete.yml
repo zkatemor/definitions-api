@@ -1,0 +1,69 @@
+tags:
+  - Users
+parameters:
+  - name: id
+    in: path
+    description: User ID
+    required: true
+    schema:
+      type: integer
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          token:
+            type: string
+            required: true
+            example: 'token'
+responses:
+  200:
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            success:
+              type: string
+              example: true
+  '422':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'token is required'
+  '401':
+    description: Rights
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "you don't have enough rights"
+  '404':
+    description: Not Found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'user not found'

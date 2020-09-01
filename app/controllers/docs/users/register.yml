@@ -1,0 +1,79 @@
+tags:
+  - Users
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          login:
+            type: string
+            required: true
+            example: 'test'
+          password:
+            type: string
+            required: true
+            example: 'test'
+          token:
+            type: string
+            required: true
+            example: 'token'
+responses:
+  200:
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            result:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                login:
+                  type: string
+                  example: 'test'
+                token:
+                  type: string
+                  example: 'token'
+  '422':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'login, password, token is required'
+  '401':
+    description: Rights
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "you don't have enough rights"
+  '418':
+    description: Already Exist
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'login already exists'
