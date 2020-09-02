@@ -15,6 +15,10 @@ def body_schema(user):
     return {"result": {'id': user.id, 'login': user.login, 'token': user.token}}
 
 
+def schema(users):
+    return {"result": [{'id': user.id, 'login': user.login, 'token': user.token} for user in users]}
+
+
 class UsersAuthController(Resource):
     def error_schema(self):
         return {
@@ -92,6 +96,37 @@ class UsersRegisterController(Resource):
                            }
                        }, 418
 
+        else:
+            return {
+                       "error": {
+                           "message": "you don't have enough rights"
+                       }
+                   }, 401
+
+
+class UsersListController(Resource):
+    def get(self):
+        """
+        file: docs/users/index.yml
+        """
+        try:
+            parser = reqparse.RequestParser()
+            parser.add_argument('token', type=str, required=True)
+            args = parser.parse_args()
+            token = args['token']
+        except Exception as e:
+            return {
+                       "error": {
+                           "message": "token is required"
+                       }
+                   }, 422
+
+        user = User.query.filter(User.token == token).first()
+
+        if user:
+            query = User.query.order_by(User.id).all()
+            data = schema(query)
+            return data, 200
         else:
             return {
                        "error": {

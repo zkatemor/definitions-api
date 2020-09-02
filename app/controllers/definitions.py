@@ -28,7 +28,7 @@ class DefinitionsListController(Resource):
         count = int(count)
         total_count = len(results)
 
-        obj = {'page': page, 'count': count, 'total_count': total_count}
+        obj = {'offset': page, 'limit': count, 'total_count': total_count}
 
         result = {'results': results[(page - 1):(page - 1 + count)], 'metadata': obj}
         return result
@@ -36,10 +36,10 @@ class DefinitionsListController(Resource):
     def index_params(self):
         parser = reqparse.RequestParser()
         parser.add_argument('search', type=str, required=False)
-        parser.add_argument('page', type=int, required=True)
-        parser.add_argument('count', type=int, required=True)
+        parser.add_argument('offset', type=int, required=True)
+        parser.add_argument('limit', type=int, required=True)
         args = parser.parse_args()
-        return args['search'], args['page'], args['count']
+        return args['search'], args['offset'], args['limit']
 
     def create_params(self):
         parser = reqparse.RequestParser()

@@ -7,7 +7,7 @@ from flask_migrate import Migrate, MigrateCommand
 from app import create_app, api
 import db
 from app.controllers.definitions import DefinitionsController, DefinitionsListController
-from app.controllers.users import UsersAuthController, UsersRegisterController, UsersController
+from app.controllers.users import UsersAuthController, UsersRegisterController, UsersController, UsersListController
 
 database = db.get_db()
 
@@ -19,6 +19,7 @@ manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
 
+api.add_resource(UsersListController, '/users')
 api.add_resource(UsersAuthController, '/users/auth')
 api.add_resource(UsersRegisterController, '/users/register')
 api.add_resource(UsersController, '/users/<int:id>')
