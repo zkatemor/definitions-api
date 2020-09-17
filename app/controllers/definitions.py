@@ -51,6 +51,9 @@ class DefinitionsListController(Resource):
         return args['title'], args['definition'], args['link'], args['token']
 
     def get(self):
+        """
+        file: docs/definitions/index.yml
+        """
         search, page, count = self.index_params()
         query = Definition.query.order_by(Definition.id).all()
         if search:
@@ -66,13 +69,16 @@ class DefinitionsListController(Resource):
         if 0 < len(data) < page or count < 0:
             return {
                        "error": {
-                           "message": "page or count not found"
+                           "message": "offset or limit not found"
                        }
                    }, 404
 
         return self.paginated_list(data, page=page, count=count), 200
 
     def post(self):
+        """
+        file: docs/definitions/create.yml
+        """
         try:
             title, definition, link, token = self.create_params()
         except Exception as e:

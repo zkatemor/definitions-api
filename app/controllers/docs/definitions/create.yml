@@ -1,0 +1,86 @@
+tags:
+  - Definitions
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            required: true
+            example: 'title'
+          definition:
+            type: string
+            required: true
+            example: 'definition'
+          link:
+            type: string
+            required: true
+            example: 'link'
+          token:
+            type: string
+            required: true
+            example: 'token'
+responses:
+  200:
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            result:
+              type: object
+              properties:
+                  id:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: 'title'
+                  definition:
+                    type: string
+                    example: 'definition'
+                  link:
+                    type: string
+                    example: 'link'
+  '422':
+    description: Error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "title, definition, link, token is required"
+  '401':
+    description: Rights
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "you don't have enough rights"
+  '404':
+    description: Not Found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "offset or limit not found"
