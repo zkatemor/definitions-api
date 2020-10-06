@@ -1,0 +1,45 @@
+tags:
+  - Definitions
+parameters:
+  - name: id
+    in: path
+    description: Definition ID
+    required: true
+    schema:
+      type: integer
+responses:
+  200:
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            result:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: 'title'
+                definition:
+                  type: string
+                  example: 'definition'
+                link:
+                  type: string
+                  example: 'link'
+  '404':
+    description: Not Found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "definition not found"

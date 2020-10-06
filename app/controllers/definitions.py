@@ -59,9 +59,7 @@ class DefinitionsListController(Resource):
         if search:
             q = f"%{search}%"
             query = Definition.query.filter(or_(
-                Definition.title.ilike(q),
-                Definition.definition.ilike(q),
-                Definition.link.ilike(q)
+                Definition.title.ilike(q)
             ))
 
         data = [schema(definition) for definition in query]
@@ -122,6 +120,9 @@ class DefinitionsController(Resource):
         return args['title'], args['definition'], args['link'], args['token']
 
     def get(self, id):
+        """
+        file: docs/definitions/show.yml
+        """
         try:
             definition = Definition.query.filter_by(id=id).first()
             return body_schema(definition), 200
@@ -133,6 +134,9 @@ class DefinitionsController(Resource):
                    }, 404
 
     def put(self, id):
+        """
+        file: docs/definitions/update.yml
+        """
         try:
             title, definition_text, link, token = self.update_params()
         except Exception as e:
@@ -173,7 +177,7 @@ class DefinitionsController(Resource):
                                "error": {
                                    "message": "definition not found"
                                }
-                           }, 422
+                           }, 404
 
             except Exception as e:
                 return {
